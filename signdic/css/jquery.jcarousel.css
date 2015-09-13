@@ -1,0 +1,63 @@
+.jcarousel-container {  
+  position: relative;
+}
+
+.jcarousel-clip {  
+  z-index: 2;  
+  padding-top: 0px;  
+  padding-right: 0px;  
+  padding-bottom: 0px;  
+  padding-left: 0px;  
+  margin-top: 0px;  
+  margin-right: 0px;  
+  margin-bottom: 0px;  
+  margin-left: 0px;  
+  overflow: hidden;  
+  position: relative;  
+  width: 928px;  
+  height: 298px;
+}
+
+.jcarousel-list {  
+  z-index: 1;  
+  overflow: hidden;  
+  position: relative;  
+  top: 0px;  
+  left: 0px;  
+  margin-top: 0px;  
+  margin-right: 0px;  
+  margin-bottom: 0px;  
+  margin-left: 0px;  
+  padding-top: 0px;  
+  padding-right: 0px;  
+  padding-bottom: 0px;  
+  padding-left: 0px;
+}
+
+.jcarousel-list li, .jcarousel-item {  
+  float: left;  
+  list-style-type: none;  
+  list-style-position: outside;  
+  list-style-image: none;  
+  width: 928px;  
+  height: 298px;  
+  position: relative;
+}
+
+#iframe1 {  
+  border-top-width: thick;  
+  border-right-width: thick;  
+  border-bottom-width: thick;  
+  border-left-width: thick;  -webkit-border-radius: 0px 0px 0px 0px;
+  border-radius: 0px 0px 0px 0px;  
+  border-top-color: #595959;  
+  border-right-color: #595959;  
+  border-bottom-color: #595959;  
+  border-left-color: #595959;  
+  bottom: 0%;  
+  border-top-style: ridge;  
+  border-right-style: ridge;  
+  border-bottom-style: ridge;  
+  border-left-style: ridge;
+}
+

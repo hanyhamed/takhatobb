@@ -1,0 +1,79 @@
+﻿<html language="ar" charset="utf-8" width="800" height="450" dir="rtl">
+  <head>
+    
+<title>Sign Dic</title>
+    
+<link media="all" type="text/css" href="styleabc.css" rel="stylesheet">
+    
+
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+ <script type="text/javascript"  language="JavaScript"  src="./js/signdic.js"></script>
+ <script type="text/javascript"  language="JavaScript"  src="./js/addword.js"></script>
+ 
+</head>
+  
+ 
+<body onload="populate()">
+ 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    
+<table style="width: 900px; height: 398px;" border="1">
+      
+<tbody>
+        <tr>
+          <td style="width: 300px;"><br>
+            
+<form>
+            
+              
+<div style="text-align: center;"> 
+<label class="labclass">قائمة الكلمات المضافة:</label><br>
+
+<select class="SelStyle" name="drop1" id="Select1"   onclick = "loadcatwords()" multiple="multiple" >
+
+                </select><br>
+
+ <label class="labclass">أضف كلمة أو مصطلح جديد: </label><br>&nbsp;<input id="intxt" type="text" class="inpclass"></input>
+
+</div>
+
+</form>
+
+          
+</td>
+         
+ <td style="width:300px;"><br>
+            
+<form>
+            
+
+              
+<div style="text-align: center;"> 
+&nbsp; <label class="labclass">قائمة التصنيفات الحالية:</label> <br>
+                
+<select class="SelStyle" name="drop2" id="Select2"   onclick = "loadcatwords()" multiple="multiple" >
+
+                </select><br>
+<label class="labclass">تصنيف الكلمة أو المصطلح</label><br><input id="newcat" class="inpclass"></input>
+
+</div>
+
+</form>
+
+ </td>
+ 
+<td style="width:300px; text-align: center;"><br>
+<button id="Ebutton" class="butstyle" onclick="Addneword()">حفظ الكلمة أو المصطلح</button>
+
+</td>
+
+</tr>
+ 
+</tbody>
+
+</table>
+  
+</body>
+
+</html>
