@@ -1,0 +1,551 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>تخاطب</title>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+<script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./js/jquery-ui.js"></script>
+<link rel="stylesheet" href="css/jqx.base.css" type="text/css" /> 
+<link rel="stylesheet" href="css/jqx.summer.css" type="text/css" />
+<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" />
+
+<script type="text/javascript" src="./js/jqxcore.js"></script>   
+<script type="text/javascript" src="./js/jqxbuttons.js"></script>   
+<script type="text/javascript" src="./js/jqxscrollbar.js"></script> 
+<script type="text/javascript" src="./js/jqxlistbox.js"></script>
+<script type="text/javascript" src="./js/index.js"></script>
+
+</head>
+
+<body>
+<h1>منظومة تخاطب - محرر البيانات</h1>
+
+<div class="PageContainerr" id="mainpanel">
+<button class="ButtonBlue" width="200" id="basiccmd">بيانات أساسية</button>
+<button class="ButtonBlue" width="200" id="cmddic">القاموس</button>
+</div>
+
+<div class="PageContainerr" id="basicpanel" style="display:none;">
+<button class="ButtonBlue" width="200" id="cmdcountries">الدول</button>
+<button class="ButtonBlue" width="200" id="cmdgovernates">المحافظات</button>
+<button class="ButtonBlue" width="200" id="cmdregions">المناطق</button>
+<button class="ButtonBlue" width="200" id="cmdreturn">عودة</button>
+
+</div>
+<div class="PageContainerr" id="dicpanel" style="display:none;">
+<button class="ButtonBlue" width="200" id="cmdsubjects">الموضوعات</button>
+<button class="ButtonBlue" width="200" id="cmdlangs">اللغات</button>
+<button class="ButtonBlue" width="200" id="cmddialects">اللهجات</button>
+<button class="ButtonBlue" width="200" id="cmdwords">الكلمات</button>
+<button class="ButtonBlue" width="200" id="cmddicreturn">عودة</button>
+
+</div>
+<div class="PageContainerr" id="countrypanel" style=" text-align:right !important; display:none;">
+
+<div class="frmfieldrow50">
+<span class="inpboxtitle">الدولة:</span>
+<input  id="countrybox"  class="inpboxtitle" style="width:225px;" > </input> 
+</div>
+
+<div class="frmfieldrow50">
+<table>
+<tr>
+<td>
+<div id='countryList' class="jqxlistbox" >
+        
+</div>
+</td>
+<td>
+<button class="ButtonBlue" width="200" id="cmdaddcountry">إضافة</button>
+<button class="ButtonBlue" width="200" id="cmdmodifycountry">تعديل</button>
+<button class="ButtonBlue" width="200" id="cmddelcountry">حذف</button>
+
+</td>
+</tr>
+</table>
+</div>
+
+</div>
+
+<div class="PageContainerr" id="governatepanel" style=" text-align:center !important; display:none;">
+
+<div class="frmfieldrow50">
+<span class="inpboxtitle">الدولة:</span>
+<select  id="countrybox2"   style="width:225px;" > </select> 
+</div>
+<div class="frmfieldrow50">
+<span class="inpboxtitle">المحافظة:</span>
+<input  id="governatebox"  class="inpboxtitle" style="width:225px;" > </input> 
+</div>
+
+
+<div class="frmfieldrow50">
+<table>
+<tr>
+<td>
+<div id='governateList' class="jqxlistbox">
+        
+</div>
+</td>
+<td>
+<button class="ButtonBlue" width="200" id="cmdaddgovernate">إضافة</button>
+<button class="ButtonBlue" width="200" id="cmdmodifygovernate">تعديل</button>
+<button class="ButtonBlue" width="200" id="cmddelgovernate">حذف</button>
+
+</td>
+</tr>
+</table>
+</div>
+
+</div>
+
+<div class="PageContainerr" id="regionpanel" style=" text-align:center !important; display:none;">
+
+<div class="frmfieldrow50">
+<span class="inpboxtitle">الدولة:</span>
+<select  id="countrybox3"   style="width:225px;" > </select> 
+</div>
+<div class="frmfieldrow50">
+<span class="inpboxtitle">المحافظة:</span>
+<select  id="governatebox2"  style="width:225px;" > </select> 
+</div>
+
+<div class="frmfieldrow50">
+<span class="inpboxtitle">المنطقة:</span>
+<input  id="regionbox"  class="inpboxtitle" style="width:225px;" > </input> 
+</div>
+
+<div class="frmfieldrow50">
+
+<table>
+<tr>
+<td>
+<div id='regionList' class="jqxlistbox">
+        
+</div>
+</td>
+<td>
+<button class="ButtonBlue" width="200" id="cmdaddregion">إضافة</button>
+<button class="ButtonBlue" width="200" id="cmdmodifyregion">تعديل</button>
+<button class="ButtonBlue" width="200" id="cmddelregion">حذف</button>
+
+</td>
+</tr>
+</table>
+</div>
+
+</div>
+
+<div class="PageContainerr" id="subjectpanel" style=" text-align:right !important; display:none;">
+
+<div class="frmfieldrow50">
+<span class="inpboxtitle">الموضوع:</span>
+<input  id="subjectbox"  class="inpboxtitle" style="width:225px;" > </input> 
+</div>
+
+<div class="frmfieldrow50">
+<table>
+<tr>
+<td>
+<div id='subjectList' class="jqxlistbox" >
+        
+</div>
+</td>
+<td>
+<button class="ButtonBlue" width="200" id="cmdaddsubject">إضافة</button>
+<button class="ButtonBlue" width="200" id="cmdmodifysubject">تعديل</button>
+<button class="ButtonBlue" width="200" id="cmddelsubject">حذف</button>
+
+</td>
+</tr>
+</table>
+</div>
+
+</div>
+
+<div class="PageContainerr" id="langpanel" style=" text-align:right !important; display:none;">
+
+<div class="frmfieldrow50">
+<span class="inpboxtitle">اللغة:</span>
+<input  id="langbox"  class="inpboxtitle" style="width:225px;" > </input> 
+</div>
+
+<div class="frmfieldrow50">
+<table>
+<tr>
+<td>
+<div id='langList' class="jqxlistbox" >
+        
+</div>
+</td>
+<td>
+<button class="ButtonBlue" width="200" id="cmdaddlang">إضافة</button>
+<button class="ButtonBlue" width="200" id="cmdmodifylang">تعديل</button>
+<button class="ButtonBlue" width="200" id="cmddellang">حذف</button>
+
+</td>
+</tr>
+</table>
+</div>
+
+</div>
+
+
+<div class="PageContainerr" id="dialectpanel" style="text-align:center !important; display:none;">
+
+<div class="frmfieldrow50">
+<span class="inpboxtitle">اللغة:</span>
+<select  id="langbox2"   style="width:225px;" > </select> 
+</div>
+<div class="frmfieldrow50">
+<span class="inpboxtitle">اللهجة:</span>
+<input  id="dialectbox"  class="inpboxtitle" style="width:225px;" > </input> 
+</div>
+
+
+<div class="frmfieldrow50">
+<table>
+<tr>
+<td>
+<div id='dialectList' class="jqxlistbox">
+        
+</div>
+</td>
+<td>
+<button class="ButtonBlue" width="200" id="cmdadddialect">إضافة</button>
+<button class="ButtonBlue" width="200" id="cmdmodifydialect">تعديل</button>
+<button class="ButtonBlue" width="200" id="cmddeldialect">حذف</button>
+
+</td>
+</tr>
+</table>
+</div>
+
+</div>
+
+<div class="PageContainerr" id="wordpanel" style="text-align:center !important; display:none;">
+<table>
+<tr> <td>
+<div class="frmfieldrow50">
+<span class="inpboxtitle">الدولة:</span>
+<select  id="countryboxw"   style="width:225px;" > </select> 
+</div>
+</td><td>
+<div class="frmfieldrow50">
+<span class="inpboxtitle">المحافظة:</span>
+<select  id="govboxw"   style="width:225px;" > </select> 
+</div>
+</td></tr><tr><td>
+<div class="frmfieldrow50">
+<span class="inpboxtitle">المنطقة:</span>
+<select  id="regionboxw"   style="width:225px;" > </select> 
+</div>
+</td><td>
+<div class="frmfieldrow50">
+<span class="inpboxtitle">اللغة:</span>
+<select  id="langboxw"   style="width:225px;" > </select> 
+</div>
+</td></tr><tr><td>
+<div class="frmfieldrow50">
+<span class="inpboxtitle">اللهجة:</span>
+<select  id="dialectboxw"  style="width:225px;" > </select> 
+</div>
+</td><td>
+<div class="frmfieldrow50">
+<span class="inpboxtitle">الموضوع:</span>
+<select  id="subjectboxw"   style="width:225px;" > </select> 
+</div>
+</td></tr><tr><td>
+<div class="frmfieldrow50">
+<span class="inpboxtitle">نوع الكلمة:</span>
+<select  id="wordtypebox"   style="width:225px;" > </select> 
+</div>
+</td><td>
+<div class="frmfieldrow50">
+<span class="inpboxtitle">الكلمة:</span>
+<input  id="onewordbox"  class="inpboxtitle" style="width:225px;" > </input> 
+</div>
+</td></tr><tr><td>
+<div class="frmfieldrow50">
+<table>
+<tr>
+<td>
+<span class="inpboxtitle">التخصص:</span>
+<input  id="majorbox"  class="inpboxtitle" style="width:120px;" > </input> 
+
+</td><td></td></tr><tr>
+<td>
+<div id='majorList' class="jqxlistbox">
+        
+</div>
+</td>
+<td>
+<button class="blueButtonx" width="200" id="cmdaddmajor">إضافة</button>
+<br><br><button class="blueButtonx" width="200" id="cmdmodifymajor">تعديل</button>
+<br><br><button class="blueButtonx" width="200" id="cmddelmajor">حذف</button>
+
+</td>
+</tr>
+</table>
+</div>
+</td><td>
+<div class="frmfieldrow50">
+<table>
+<tr>
+<td>
+<span class="inpboxtitle">المرادف:</span>
+<input  id="synonymbox"  class="inpboxtitle" style="width:130px;" > </input> 
+
+</td><td></td></tr><tr>
+<td>
+
+<div id='synonymList' class="jqxlistbox">
+        
+</div>
+</td>
+<td>
+<button class="blueButtonx" width="200" id="cmdaddsynonym">إضافة</button>
+<br><br><button class="blueButtonx" width="200" id="cmdmodifysynonym">تعديل</button>
+<br><br><button class="blueButtonx" width="200" id="cmddelsynonym">حذف</button>
+
+</td>
+</tr>
+</table>
+</div>
+</td></tr><tr><td>
+<div class="frmfieldrow50">
+<table>
+<tr>
+<td>
+<span class="inpboxtitle">ملفات الصور:</span>
+</td><td></td></tr><tr>
+<td>
+<div id='imageList' class="jqxlistbox">
+        
+</div>
+</td>
+<td>
+<form id="imageupload" action="php/uploadimage.php" method="POST" enctype="multipart/form-data" target="upframe">
+
+<input type="file" name="imagefile" multiple  width="200" id="imagefile" accept="image/jpeg">
+<input type="hidden" name="imagefolder" id="imagefolder" >
+<input type="hidden" name="imagename" id="imagename" >
+<br><button type="submit" class="blueButtonx" width="200" id="cmduploadimage">رفع </button>
+</form>
+<br><button class="blueButtonx" width="200" id="cmdvieimage">عرض</button>
+<br><br><button class="blueButtonx" width="200" id="cmddelimage">حذف</button>
+
+</td>
+</tr>
+</table>
+<div>
+<iframe id="upframe" name="upframe" style="display:none;">
+</iframe>
+</div>
+</div>
+</td><td>
+<div class="frmfieldrow50">
+<table>
+<tr>
+<td>
+<span class="inpboxtitle">ملفات الفيديو:</span>
+</td><td></td></tr><tr>
+<td>
+<div id='videoList' class="jqxlistbox">
+        
+</div>
+</td>
+<td>
+<form id="videoupload" action="php/uploadvideo.php" method="POST" enctype="multipart/form-data" target="upvframe">
+
+<input type="file" name="videofile" id="videofile" multiple width="200" accept="video/webm" >
+<input type="hidden" name="videofolder" id="videofolder" >
+<input type="hidden" name="videoname" id="videoname" >
+
+<br><button type="submit" class="blueButtonx" width="200" name="cmduploadvideo" id="cmduploadvideo">رفع</button>
+</form>
+<br><button class="blueButtonx" width="200" id="cmdvievideo">عرض</button>
+<br><br><button class="blueButtonx" width="200" id="cmddelvideo">حذف</button>
+
+</td>
+</tr>
+</table>
+
+<div>
+<iframe id="upvframe" name="upvframe" style="display:none;">
+</iframe>
+</div>
+
+</div>
+</td></tr><tr><td>
+<div class="frmfieldrow50">
+<table>
+<tr>
+<td>
+<span class="inpboxtitle">ملفات الصوت:</span>
+</td><td></td></tr><tr>
+<td>
+<div id='audioList' class="jqxlistbox">
+        
+</div>
+</td>
+<td>
+<form id="audioupload" action="php/uploadaudio.php" method="POST" enctype="multipart/form-data" target="upaframe">
+
+<input type="file" name="audiofile" id="audiofile"  multiple width="200"  accept="audio/mp3">
+<input type="hidden" name="audiofolder" id="audiofolder">
+<input type="hidden" name="audioname" id="audioname" >
+
+<br><button type="submit" class="blueButtonx" width="200" name="cmduploadaudio" id="cmduploadaudio">رفع </button>
+
+</form>
+<br><button class="blueButtonx" width="200" id="cmdvieaudio">عرض</button>
+<br><br><button class="blueButtonx" width="200" id="cmddelaudio">حذف</button>
+
+
+</td>
+</tr>
+</table>
+<div>
+<iframe id="upaframe" name="upaframe" style="display:none;">
+</iframe>
+</div>
+</div>
+</td><td>
+<div class="frmfieldrow50">
+<table>
+<tr>
+<td>
+<span class="inpboxtitle">ملفات التمنطق:</span>
+</td><td></td></tr><tr>
+<td>
+<div id='lipsingList' class="jqxlistbox">
+        
+</div>
+</td>
+<td>
+<form id="lipsingupload" action="php/uploadlipsing.php" method="POST" enctype="multipart/form-data" target="uplframe">
+
+<input type="file" name="lipsingfile" id="lipsingfile" multiple  width="200" accept="video/webm">
+<input type="hidden" name="lipsingfolder" id="lipsingfolder">
+<input type="hidden" name="lipsingname" id="lipsingname" >
+
+<br><button type="submit" class="blueButtonx" width="200" name=id="cmduploadlipsing" id="cmduploadlipsing">رفع</button>
+</form>
+<br><button class="blueButtonx" width="200" id="cmdvielipsing">عرض</button>
+<br><br><button class="blueButtonx" width="200" id="cmddellipsing">حذف</button>
+
+
+</td>
+</tr>
+</table>
+<div>
+<iframe id="uplframe" name="uplframe" style="display:none;">
+</iframe>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="frmfieldrow50">
+<span class="inpboxtitle">شرح الكلمة:</span>
+<input  id="explainbox"  class="inpboxtitle" style="width:225px;" > </input> 
+</div>
+</td>
+<td>
+<div class="frmfieldrow50">
+<table>
+<tr>
+
+<td>
+<span class="inpboxtitle">ملفات فيديو الشرح:</span>
+</td><td></td></tr><tr>
+<td>
+<div id='videoexList' class="jqxlistbox">
+        
+</div>
+</td>
+<td>
+<form id="videoexupload" action="php/uploadvideoex.php" method="POST" enctype="multipart/form-data" target="upvexframe">
+
+<input type="file" name="videoexfile" id="videoexfile" multiple width="200" accept="video/webm" >
+<input type="hidden" name="videoexfolder" id="videoexfolder" >
+<input type="hidden" name="videoexname" id="videoexname" >
+
+<br><button type="submit" class="blueButtonx" width="200" name="cmduploadvideoex" id="cmduploadvideoex">رفع</button>
+</form>
+<br><button class="blueButtonx" width="200" id="cmdvievideoex">عرض</button>
+<br><br><button class="blueButtonx" width="200" id="cmddelvideoex">حذف</button>
+
+</td>
+</tr>
+</table>
+
+<div>
+<iframe id="upvexframe" name="upvexframe" style="display:none;">
+</iframe>
+</div>
+
+</div>
+</td>
+
+</tr>
+</table>
+
+<br>
+<button class="ButtonBlue" width="100" id="cmdaddword">إضافة</button>
+<button class="ButtonBlue" width="100" id="cmdsearchword">بحث</button>
+<button class="ButtonBlue" width="100" id="cmdmodifyword">تعديل </button>
+<button class="ButtonBlue" width="100" id="cmddeldic">حذف</button>
+<button class="ButtonBlue" width="100" id="cmdexportdic">تصدير</button>
+<button class="ButtonBlue" width="100" id="cmddownload">تنزيل</button>
+
+<div id="dialog" title="كلمات القاموس" style="display:none;">
+<div id="dvideo">
+ <video id="prevvideo" width ="280" height="210" autoplay >
+ </video>
+ </div>
+ </div>
+ 
+ <div id="audiodialog" title="كلمات القاموس" style="display:none;">
+ <div id="daudio"  >
+ <audio id="prevaudio" width ="280"  controls autoplay type="audio/mpeg">
+ </audio>
+ </div>
+ </div>
+ 
+ <div id="imagedialog" title="كلمات القاموس" style="display:none;">
+
+ <div id="dimage" ">
+
+ <img id="previmg" width ="280" height="210">
+ </img>
+ </div>
+</div>
+
+<div id="serchdialog" title="كلمات القاموس" style="display:none;">
+<div id="dsearch" >
+<table>
+
+<tr>
+<td>
+<div id='wordList' class="jqxlistbox" >
+        
+</div>
+</td>
+<td>
+
+<button class="blueButtonx" width="50" id="cmddisplay">عرض</button>
+</td>
+</tr>
+</table>
+
+</div>
+
+
+
+</body>
+</html>

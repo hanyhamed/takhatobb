@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>Takhatop</title>
+
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+<script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./js/jquery-ui.js"></script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $("#sendbutton").click(function(e) {
+        if($("#oneword").val() != "") {
+			
+			 $.post( 
+                  "php/video.php",
+                  { oneword: $("#oneword").val(), key:"fawzy", prevword: $("#prevword").val() },
+                  function(data) {
+					  
+					 var  ajaxData=[];
+					  try {
+					  ajaxData = $.parseJSON(data);  
+					  var ss="<table class='tbl'><tr><td class='tbl'>مسار الفيديو</td></tr>"
+					  for(var i=0;i<ajaxData.videos.length;i++)
+					 
+						  ss=ss+"<tr><td class='tbl'>"+ajaxData.videos[i]["vpath"]+"</td></tr>";
+					 
+					  ss=ss+"</table>";
+					  $("#resultdiv").html(ss);
+					  } catch (e) { };
+					  
+                    
+                  }
+               );
+			
+		}
+    });
+});
+</script>
+<style>
+.tbl {
+border-style: ridge; 
+border-color:#525151; 
+font-size:18px;
+}
+.fonty{
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-size:16px;
+	font-weight:bold;
+	
+}
+</style>
+</head>
+
+<body>
+<table width="100%" align="center">
+<tr>
+<td align="center">
+<table width="50%" align="center" dir="rtl" class="tbl" >
+<tr>
+<td class="tbl">
+الكلمة: <input id="oneword" type="text" width="300" class="fonty"> </input>
+</td>
+</tr>
+<tr>
+<td class="tbl">
+الكلمة السابقة: <input id="prevword" type="text" width="300" class="fonty"> </input>
+</td>
+</tr>
+<tr>
+<td class="tbl" >
+<button id="sendbutton" class="fonty">إرسال</button>
+</td>
+
+</tr>
+<tr>
+<td class="tbl">
+<div id="resultdiv" class="fonty">
+</div>
+</td>
+
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>

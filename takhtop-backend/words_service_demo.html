@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>Takhatop</title>
+
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+<script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./js/jquery-ui.js"></script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $("#sendbutton").click(function(e) {
+        if($("#phrase").val() != "") {
+			
+			 $.post( 
+                  "php/phrase.php",
+                  { phrase: $("#phrase").val(), key:"fawzy" },
+                  function(data) {
+					  
+					 var  ajaxData=[];
+					  try {
+					  ajaxData = $.parseJSON(data);  
+					  var ss="<table class='tbl'><tr><td class='tbl'>الكلمة</td><td class='tbl'>الحالة</td><td class='tbl'>البدائل</td></tr>"
+					  for(var i=0;i<ajaxData.words.length;i++)
+					 
+						  ss=ss+"<tr><td class='tbl'>"+ajaxData.words[i]['word']+"</td><td class='tbl'>"+ajaxData.words[i]['status']+"</td><td class='tbl'>"+ajaxData.words[i]['alternates'].join()+"</td></tr>";
+					   ss=ss+"</table>";
+					
+					  $("#resultdiv").html(ss);
+					  } 
+					  catch (e) { };
+					  
+                    
+                  }
+               );
+			
+		}
+    });
+});
+</script>
+<style>
+.tbl {
+border-style: ridge; 
+border-color:#525151; 
+font-size:18px;
+}
+.fonty{
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	font-size:16px;
+	font-weight:bold;
+	
+}
+</style>
+</head>
+
+<body>
+<table width="100%" align="center">
+<tr>
+<td align="center">
+<table width="50%" align="center" dir="rtl" class="tbl" >
+<tr>
+<td class="tbl">
+الجملة: <input id="phrase" type="text" width="300" class="fonty"> </input>
+</td>
+</tr>
+<tr>
+<td class="tbl" >
+<button id="sendbutton" class="fonty">إرسال</button>
+</td>
+
+</tr>
+<tr>
+<td class="tbl">
+<div id="resultdiv" class="fonty">
+</div>
+</td>
+
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>

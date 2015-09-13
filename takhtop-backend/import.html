@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Import</title>
+
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+<script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./js/jquery-ui.js"></script>
+<script type="text/javascript" src="./js/signdic.js"></script>
+<script type="text/javascript">
+function GetSetData(jsonobj)
+{
+	var jsonstr = JSON.stringify(jsonobj);
+	ajaxData=[];
+	console.log(jsonobj);
+	console.log(jsonstr);
+	
+			$.ajaxSetup({async:false});
+
+ $.post("php/drev.php",{param:jsonstr },function(data) {
+	
+      try {ajaxData = $.parseJSON(data); } catch (e) { };	  
+	  });
+	  return ajaxData;
+}
+////////////////////////////////////////////////////////////////////////////
+function GetSetWordData(jsonobj)
+{
+	var jsonstr = JSON.stringify(jsonobj);
+	ajaxData=[];
+	//console.log(jsonobj);
+    //	console.log(jsonstr);
+$.ajaxSetup({async:false});
+$.post("php/word.php",{param:jsonstr },function(data) {
+	
+      try {ajaxData = $.parseJSON(data); } catch (e) { };	  
+	  });
+	  return ajaxData;
+}
+
+/////////////////////////////////////////////////////////////////////
+function InsertWord(ww,cat)
+{
+	var jsonObj= new Array();
+	item = {};
+        item ["order"] = 2;
+		item ["lang"] = "العربية";
+		item ["dialect"] = "الفصحى";
+		item ["word"] = ww;
+		if(cat=="أفعال شائعة") item ["wtype"] = "فعل"; else item ["wtype"] = "اسم";
+		item ["subject"] = cat;
+		item ["major"] = cat;
+		item ["cntry"] = "مصر";
+		item ["gvrn"] = "الكل";
+		item ["vcount"] =1;
+		item ["syn"] = 0;
+		item ["lcount"] = 0;
+		item ["acount"] = 0;
+		item ["region"] = "الكل";
+		item ["wcode"] = GetVideoName(ww);
+		item ["icount"] =3;
+		item ["syncode"] ="";
+		jsonObj.push(item);
+		var data=GetSetWordData(jsonObj);
+		var sss=data[0]["result"];
+		var zz=$("#recinp").val();
+		var xx=parseInt(zz,10);
+		xx=xx+1;
+		$("#recinp").val(xx);
+		
+
+}
+////////////////////////////////////////////////////////////////
+function RemoveAccent()
+{
+		var jsonObj= new Array();
+	    item = {};
+        item ["order"] = 8;
+		jsonObj.push(item);
+		var data=GetSetWordData(jsonObj);
+		var sss=data[0]["result"];
+		alert(sss);
+		
+
+}
+
+function RemoveDerivAccent()
+{
+		var jsonObj= new Array();
+	    item = {};
+        item ["order"] = 9;
+		jsonObj.push(item);
+		var data=GetSetWordData(jsonObj);
+		var sss=data[0]["result"];
+		alert(sss);
+		
+
+}
+///////////////////////////////////////////////////////////////////
+$(document).ready(function(e) {
+	$("#catbutton").click(function(e) {
+		var zz=Getcats();
+		var ss=zz[0];
+		for(var i=1;i<zz.length;i++) ss=ss+"~"+zz[i];
+       var jsonObj= new Array();
+        item = {};
+        item ["order"] = 4;
+		item["cats"]=ss;
+		jsonObj.push(item);
+		var data=GetSetData(jsonObj);
+		var sss=data[0]["result"];
+		alert(sss);
+    });
+	$("#importbutton").click(function(e) {
+        for (var i = 0; i < Diction.words.length; i++) {
+           var ww=Diction.words[i].is;
+           var cat = Diction.words[i].category;
+		   InsertWord(ww,cat);
+         }
+    });
+	
+	$("#accentbutton").click(function(e) {
+        RemoveAccent();
+    });
+	$("#drevxbutton").click(function(e) {
+        RemoveDerivAccent();
+    });
+	$("#testbutton").change(function(e) {
+       
+    });
+	
+});
+</script>
+</head>
+
+<body dir ="ltr" >
+<table width="100%" align="center">
+<tr>
+<td>
+<br>
+<br>
+<table width="60%" align="right">
+
+<tr>
+<td>  <button  id="catbutton" style=" font-family:Cambria, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif;font-size:18px;">Import Categories</button>
+<br>
+<br>
+<br>
+<br>
+</td>
+
+</tr>
+<tr>
+
+<td style=" font-size:18px;"> عدد الكلمات: <input id="recinp" value="0" style=" font-size:18px;"> </input><button  id="importbutton" style=" font-family:Cambria, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif;font-size:18px;">Import Words</button>
+<br>
+<br>
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td>
+<button  id="accentbutton" style=" font-family:Cambria, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif;font-size:18px;">Remove accent</button>
+<br>
+<br>
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td>
+<button  id="drevxbutton" style=" font-family:Cambria, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif;font-size:18px;">Remove accent from derivs</button>
+</td>
+</tr>
+<tr>
+<td>
+<button  id="testbutton" style=" font-family:Cambria, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif;font-size:18px;">Test</button>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
