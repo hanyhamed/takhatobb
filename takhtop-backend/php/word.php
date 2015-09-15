@@ -1,6 +1,6 @@
 ﻿<?php
 
- header('Content-Type: text/html; charset=utf-8');/// set the content charset to utf-8 for php
+header('Content-Type: text/html; charset=utf-8');/// set the content charset to utf-8 for php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 session_start();
@@ -77,7 +77,7 @@ if($pp->syn!="") {
 	
 	if(strpos(strval($pp->syn),"~") !== false) { 
 		$wds=explode("~",strval($pp->syn));
-		$wdcode=explode("~",strval($pp->syncode));
+		//$wdcode=explode("~",strval($pp->syncode));
 		for($i=0;$i<count($wds);$i++)
 		{
 			$newsyn=$pp->syn;
@@ -85,7 +85,7 @@ if($pp->syn!="") {
 		$newsyn=str_replace($wds[$i],$pp->word,$newsyn);
 		
 		$sql="INSERT INTO `oneword`(`lang`, `dialect`, `the_word`, `word_type`, `subject`, `major`, `country`, `governate`, `video_count`, `synonym_ids`, `lipsing _count`, `audio_count`, `region`, `wcode`, `image_count`,`explain`,`vexcount`) VALUES('";
-		$ss=$pp->lang."','".$pp->dialect."','".$wds[$i]."','".$pp->wtype."','".$pp->subject."','".$pp->major."','".$pp->cntry."','".$pp->gvrn."',0,'".$newsyn."',0,0,'".$pp->region."','".$wdcode[$i]."',0,'".$pp->explain."',".$pp->vexcount.")";
+		$ss=$pp->lang."','".$pp->dialect."','".$wds[$i]."','".$pp->wtype."','".$pp->subject."','".$pp->major."','".$pp->cntry."','".$pp->gvrn."',0,'".$newsyn."',0,0,'".$pp->region."','".$pp->wcode."',0,'".$pp->explain."',".$pp->vexcount.")";
 		$sql=$sql.$ss;
 	
 		$result = mysqli_query($con,$sql);
@@ -95,7 +95,7 @@ if($pp->syn!="") {
 		;
 		
 	$sql="INSERT INTO `oneword`(`lang`, `dialect`, `the_word`, `word_type`, `subject`, `major`, `country`, `governate`, `video_count`, `synonym_ids`, `lipsing _count`, `audio_count`, `region`, `wcode`, `image_count`,`explain`,`vexcount`) VALUES('";
-	$ss=$pp->lang."','".$pp->dialect."','".$pp->syn."','".$pp->wtype."','".$pp->subject."','".$pp->major."','".$pp->cntry."','".$pp->gvrn."',0,'".$pp->word."',0,0,'".$pp->region."','".$pp->syncode."',0,'".$pp->explain."',".$pp->vexcount.")";
+	$ss=$pp->lang."','".$pp->dialect."','".$pp->syn."','".$pp->wtype."','".$pp->subject."','".$pp->major."','".$pp->cntry."','".$pp->gvrn."',0,'".$pp->word."',0,0,'".$pp->region."','".$pp->wcode."',0,'".$pp->explain."',".$pp->vexcount.")";
 	$sql=$sql.$ss;
 	
 	$result = mysqli_query($con,$sql);
@@ -134,11 +134,11 @@ function DelWord($pp)
 			$sql="DELETE FROM `oneword` WHERE  `the_word`='".$ss[$i]."'";
             $result = mysqli_query($con,$sql);
 		}
-		$sql="DELETE FROM `oneword` WHERE  `the_word`='".$pp->word."'";
-        $result = mysqli_query($con,$sql);
+		
 		
 	}
-
+$sql="DELETE FROM `oneword` WHERE  `the_word`='".$pp->word."'";
+$result = mysqli_query($con,$sql);
 $rr[0]=array("result"=>"تم حذف الكلمة ومرادفتها بنجاح بنجاح" );
  echo json_encode($rr);
 	
@@ -204,7 +204,7 @@ function WriteJson($pp)
 {
 $rr=array();
 
-$sql="SELECT `lang`,`dialect`,`word_type`,`subject`, `country`, `governate`, `region`,`major`,`synonym_ids`, `video_count`, `image_count`, `audio_count` , `lipsing _count` ,`the_word`, `wcode`,`explain` FROM `oneword` WHERE `country`='".$pp->cntry."' AND `governate`='".$pp->gvrn."' AND `region`='".$pp->gvrn."' AND `lang`='".$pp->lang."'" ;
+$sql="SELECT `lang`,`dialect`,`word_type`,`subject`, `country`, `governate`, `region`,`major`,`synonym_ids`, `video_count`, `image_count`, `audio_count` , `lipsing _count` ,`the_word`, `wcode`,`explain`, `vexcount` FROM `oneword` WHERE `country`='".$pp->cntry."' AND `governate`='".$pp->gvrn."' AND `region`='".$pp->gvrn."' AND `lang`='".$pp->lang."'" ;
 
 include "db_config.php"; 
 $result = mysqli_query($con,$sql);
@@ -216,7 +216,7 @@ fwrite($myfile, $txt);
 while($row = $result->fetch_row())	
 {
 
-$txt='{ "lang":"'.$row[0].'", "dialect":"'.$row[1].'", "word":"'.$row[13].'", "type":"'.$row[2].'", "subject":"'.$row[3].'", "synonym":"'.$row[8].'", "major":"'.$row[7].'", "country":"'.$row[4].'", "governate":"'.$row[5].'", "region":"'.$row[6].'", "wcode":"'.$row[14].'", "video_count":"'.$row[9].'", "image_count":"'.$row[10].'", "audio_count":"'.$row[11].'", "lipsing_count":"'.$row[12].'","explain":"'.$row[13].'"}'.PHP_EOL;
+$txt='{ "lang":"'.$row[0].'", "dialect":"'.$row[1].'", "word":"'.$row[13].'", "type":"'.$row[2].'", "subject":"'.$row[3].'", "synonym":"'.$row[8].'", "major":"'.$row[7].'", "country":"'.$row[4].'", "governate":"'.$row[5].'", "region":"'.$row[6].'", "wcode":"'.$row[14].'", "video_count":"'.$row[9].'", "image_count":"'.$row[10].'", "audio_count":"'.$row[11].'", "lipsing_count":"'.$row[12].'","explain":"'.$row[15].'","explain_video":"'.$row[16].'"}'.PHP_EOL;
 if($i>0) $txt=','.$txt;
 fwrite($myfile, $txt);
 $i++;

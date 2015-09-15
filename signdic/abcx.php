@@ -8,10 +8,10 @@
 <!--<script type="text/javascript" src="js/jquery-1.9.1.js"></script>-->
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
-  
-  <script type="text/javascript" language="JavaScript" src="./js/dic.js"></script>
-   <script type="text/javascript" language="JavaScript" src="./js/wordfinder.js"></script>
- <script type="text/javascript"  language="JavaScript"  src="js/abcx.js"></script>
+<script type="text/javascript" language="JavaScript" src="./js/dic.js"></script>
+<script type="text/javascript" language="JavaScript" src="./js/derivatives.js"></script>
+<script type="text/javascript" language="JavaScript" src="./js/wordfinder.js"></script>
+<script type="text/javascript"  language="JavaScript"  src="js/abcx.js"></script>
 </head>
   
 <body onLoad="populate();">
@@ -27,7 +27,7 @@
 <div class="wordtitle"><div id="wordTit"  style="font-size:18px;"></div> <div id="catTit" style="font-size:18px;"></div></div>
 </div>
 <div id="videodiv" style="display:none;">
-    <video width="530" height="360"  controls="controls" id="vidcontrol"  type="video/webm" style="margin:1px;padding:1px;border:5px solid green;">
+    <video width="530" height="360"  controls="controls" id="vidcontrol" onEnded="PlayAnotherVideo()"  type="video/webm" style="margin:1px;padding:1px;border:5px solid green;">
     </video>
      <div style="text-align:center;">
      
@@ -43,7 +43,16 @@
  <a href="#" onClick="ShowImage(1)"><img id="nxtimg" src="images/next.png"></a>
  <a href="#" onClick="ShowImage(0)"><img id="previmg" src="images/prev.png"></a>
   </div>
- </div>   
+ </div>  
+ <div id="explaindiv" style="display:none;"> 
+ <table style="font-family:'Times New Roman'; font-size:16px; font-weight:bold">
+<tr>
+<td>شرح الكلمة:</td>
+<td><textarea  readonly="readonly" id="txtexplain" style="width:350px; font-family:'Times New Roman'; font-size:18px;" ></textarea></td>
+<td><button onClick="PlayExplainVideo()">عرض فيدبو الشرح</button></td>
+</tr>
+</table>
+</div>
 </div>
 <!------------------------------------------>
 <!---------------------------Alphabets Container ------------------------>
@@ -100,6 +109,14 @@
   </p>
   </div>
   </div><!-------------- end of accordion main---->
+  <table style="font-family:'Times New Roman'; font-size:16px; font-weight:bold; background-color:rgba(83, 190, 186, 0.5);">
+  <tr><td align="center">المرادفات</td><td align="center">المشتقات</td></tr>
+
+  <tr>
+  <td><select id="synsel" multiple="multiple" style="width:150px; font-size:20px; font-weight:bold;font-family:'Times New Roman';" > </select></td>
+  <td><select id="drevsel" multiple="multiple" onclick="PlayDrevVideo()"style="width:150px;font-size:20px; font-weight:bold;font-family:'Times New Roman';"> </select></td>
+  </tr>
+  </table>
 </div>
 
 <!----------------------------------------------------->
@@ -207,7 +224,7 @@
 </td>
 
 </tr>
- 
+
 </tbody>
 
 </table>

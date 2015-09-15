@@ -5,6 +5,9 @@ function play_video()
     {
 		document.getElementById("videodiv").style.display="none";
 		document.getElementById("picdiv").style.display="block";
+       sessionStorage.setItem("dvideo","none");
+	   sessionStorage.setItem("current","0");
+	   sessionStorage.setItem("vcount","0");
 
         var lst = document.getElementById("Select1");
         var j = 0;
@@ -22,10 +25,14 @@ function play_video()
                 k = i;
                 ss = lst.options[i].value.toLowerCase();
 				wordtitle.innerHTML=ss;
+				
             }
 
 
         }
+		FillSyon(ss);
+		FillDrevs(ss);
+		ShowExplain(ss);
         if(document.getElementById("videodiv").style.display=="none" &&  j>0)
 		{
 			if ( HasImage()){LoadPics();return;}
@@ -522,3 +529,141 @@ ShowImage(1);
 }
 }
 
+/////////////////////////////////
+function FillSyon(str)
+{
+var ss= GetSyn(str);
+document.getElementById("synsel").innerHTML = "";
+var lst=document.getElementById("synsel");
+for (var i=0;i<ss.length;i++) 
+{
+	var option = document.createElement("option");
+    option.text = ss[i];
+    option.value=ss[i];
+	lst.add(option);
+	}
+}
+
+function FillDrevs(str)
+{
+	
+var ss= GetDrevs(str);
+document.getElementById("drevsel").innerHTML = "";
+
+var lst=document.getElementById("drevsel");
+
+for (var i=0;i<ss.length;i++) 
+{
+	 var option = document.createElement("option");
+             
+    option.text = ss[i];
+    option.value=ss[i];
+	lst.add(option);
+	}
+
+	
+}
+/////////////////////////////////////////////////////////////////
+function ShowExplain(str)
+{
+	var ss=GetExplain(str);
+	if(ss!="") {
+		         document.getElementById("txtexplain").value=ss;
+				  document.getElementById("explaindiv").style.display="block";
+		}
+		else  document.getElementById("explaindiv").style.display="none";
+}
+///////////////////////////////////////////////////////////////////////
+function PlayExplainVideo()
+{
+document.getElementById("picdiv").style.display="none";
+document.getElementById("videodiv").style.display="block";
+var lst = document.getElementById("Select1");
+
+var ss = "";
+ 
+		
+for (var i = 0; i < lst.options.length; i++) if (lst.options[i].selected == true) ss = lst.options[i].value.toLowerCase();
+            
+
+        
+var vv = document.getElementById("vidcontrol");		
+var vvv= document.URL ;
+var ppp= vvv.substring(0,vvv.lastIndexOf('/')+1) ;
+ppp=ppp.replace("#","");
+	
+ppp=ppp+"res/videoex/" + GetVideoName(ss) + "/1.webm";
+	
+vv.src=ppp;
+vv.poster="";
+vv.play();            
+
+        }
+////////////////////////////////////////////////////////////////
+function PlayDrevVideo()
+{
+	var lst = document.getElementById("drevsel");
+
+var ss = "";
+ 
+		
+for (var i = 0; i < lst.options.length; i++) if (lst.options[i].selected == true) ss = lst.options[i].value.toLowerCase();
+if(ss!="")
+{
+document.getElementById("picdiv").style.display="none";
+document.getElementById("videodiv").style.display="block";
+
+	var dd=ReturnDeriv(ss);
+if(dd.length>0)	{
+	sessionStorage.setItem("dvideo",dd.toString());
+	sessionStorage.setItem("current","0");
+	sessionStorage.setItem("vcount",dd.length);
+var vv = document.getElementById("vidcontrol");		
+var vvv= document.URL ;
+var ppp= vvv.substring(0,vvv.lastIndexOf('/')+1) ;
+ppp=ppp.replace("#","");
+	
+ppp=ppp+"res/video/" + GetVideoName(dd[0]) + "/1.webm";
+	
+vv.src=ppp;
+vv.poster="";
+vv.play();            
+
+}
+
+}
+}
+
+function PlayAnotherVideo()
+{
+	var sss=sessionStorage.getItem("current");
+	var ss =sessionStorage.getItem("vcount");
+	var vcount=parseInt(ss,10);
+	var current=parseInt(sss,10);
+	if (vcount>0 && current<vcount)
+	{
+		current=current+1;
+		sessionStorage.setItem("current",current);
+		var dd=sessionStorage.getItem("dvideo").split(",");
+		var vv = document.getElementById("vidcontrol");		
+var vvv= document.URL ;
+var ppp= vvv.substring(0,vvv.lastIndexOf('/')+1) ;
+ppp=ppp.replace("#","");
+	
+ppp=ppp+"res/video/" + GetVideoName(dd[current]) + "/1.webm";
+	
+vv.src=ppp;
+vv.poster="";
+vv.play();            
+
+		
+	}
+	
+	else {
+		sessionStorage.setItem("dvideo","none");
+	   sessionStorage.setItem("current","0");
+	   sessionStorage.setItem("vcount","0");
+
+	}
+	
+}

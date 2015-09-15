@@ -152,7 +152,8 @@ function Getsyn()
 {
 	var ss="";
 	var sss= $("#synonymList").jqxListBox('getItem', 0).value;
-	if(sss!="لا يوجد") 
+	var it=$("#synonymList").jqxListBox('getItems').length;
+	if(sss!="لا يوجد" && it>0) 
 	{
 		var it=$("#synonymList").jqxListBox('getItems').length;
 		for(var i=0;i<it;i++) if(i==0)  ss=$("#synonymList").jqxListBox('getItem', i).value;
@@ -164,11 +165,12 @@ function Getsyn()
 //////////////////////////////////////////////////////////////////////////
 function GetsynCode()
 {
-	var ss="";
+	var ss=""
+	var it=$("#synonymList").jqxListBox('getItems').length;
 	var sss= $("#synonymList").jqxListBox('getItem', 0).value;
-	if(sss!="لا يوجد") 
+	if(sss!="لا يوجد" && it>0) 
 	{
-		var it=$("#synonymList").jqxListBox('getItems').length;
+		
 		for(var i=0;i<it;i++) if(i==0)  ss=GetVideoName($("#synonymList").jqxListBox('getItem', i).value);
 		                                else ss=ss+"~"+GetVideoName($("#synonymList").jqxListBox('getItem', i).value);  
 		
@@ -257,7 +259,7 @@ return it;
 function GetListElements(sss)
 {
 	var ss=[];
-if(sss=="") ss.push("لايوجد");
+if(sss=="") ss.push("لا يوجد");
 else {
 	var xx=sss.indexOf("~");
 	if(xx>0) { 
@@ -292,14 +294,31 @@ function GetWordInfo(selectedword)
 	 jsonObj.push(item);
 		var data=GetSetWordData(jsonObj);
 		$("#onewordbox").val(selectedword);
-		$("#langboxw").val(data[0]["lang"]);$("#langboxw").click();
-		$("#dialectboxw").val(data[0]["dialect"]);
-		$("#wordtypebox").val(data[0]["wtype"]);
-     	$("#subjectboxw").val(data[0]["subject"]);
-		$("#countryboxw").val(data[0]["cntry"]);$("#countryboxw").click();
-		$("#govboxw").val(data[0]["gvrn"]);$("#govboxw").click();
-		$("#regionboxw").val(data[0]["region"]);
-	    $("#explainbox").val(data[0]["explain"]);
+        var sc=	 $('#langboxw option').size();
+		for (var i=0;i<sc;i++) if($("#langboxw")[i]==data[0]["lang"]) $("#langboxw")[i].attr("selected","selected") ;$("#langboxw").click();
+	 	//$("#langboxw").val(data[0]["lang"]);$("#langboxw").click();
+		 sc=$('#dialectboxw option').size();
+		for (var i=0;i<sc;i++) if($("#dialectboxw")[i]==data[0]["dialect"]) $("#dialectboxw")[i].attr("selected","selected") ;$("#dialectboxw").click();
+	 //	$("#dialectboxw").val(data[0]["dialect"];
+		 sc= $('#wordtypebox option').size();
+		for (var i=0;i<sc;i++) if($("#wordtypebox")[i]==data[0]["wtype"]) $("#wordtypebox")[i].attr("selected","selected") ;$("#wordtypebox").click();
+		//$("#wordtypebox").val(data[0]["wtype"]);
+		 sc= $('#subjectboxw option').size();
+		for (var i=0;i<sc;i++) if($("#subjectboxw")[i]==data[0]["subject"]) $("#subjectboxw")[i].attr("selected","selected") ;$("#subjectboxw").click();
+     	//$("#subjectboxw").val(data[0]["subject"]);$("#subjectboxw").click();
+		//var ttt=data[0]["subject"];
+	    sc= $('#countryboxw option').size();
+		for (var i=0;i<sc;i++) if($("#countryboxw")[i]==data[0]["cntry"]) $("#countryboxw")[i].attr("selected","selected") ;$("#countryboxw").click();
+//		$("#countryboxw").val(data[0]["cntry"]);$("#countryboxw").click();
+	    sc= $('#govboxw option').size();
+		for (var i=0;i<sc;i++) if($("#govboxw")[i]==data[0]["gvrn"]) $("#govboxw")[i].attr("selected","selected") ;$("#govboxw").click();
+		
+		//$("#govboxw").val(data[0]["gvrn"]);$("#govboxw").click();
+		sc= $('#regionboxw option').size();
+		for (var i=0;i<sc;i++) if($("#regionboxw")[i]==data[0]["region"]) $("#regionboxw")[i].attr("selected","selected") ;$("#regionboxw").click();
+
+		//$("#regionboxw").val(data[0]["region"]);$("#regionboxw").click();
+	    $("#explainbox").val(data[0]["explain"]);  
 		var temp=GetListElements(data[0]["major"]); $("#majorList").jqxListBox({ source: temp , width: '200px', height: '150px', theme: 'summer' });
         temp=GetListElements(data[0]["syn"]); $("#synonymList").jqxListBox({ source: temp , width: '200px', height: '150px', theme: 'summer' });
         temp=Getfnames(data[0]["vcount"],".webm");  $("#videoList").jqxListBox({ source: temp , width: '200px', height: '150px', theme: 'summer' });
@@ -313,24 +332,28 @@ function GetWordInfo(selectedword)
 function InsertWord(param)
 {
 	var jsonObj= new Array();
+	var temp=$('#subjectboxw').find(":selected").text();
+
 	item = {};
         item ["order"] = 2;
-		item ["lang"] = $("#langboxw").val();
-		item ["dialect"] = $("#dialectboxw").val();
+		item ["lang"] = $("#langboxw").find(":selected").text();
+		item ["dialect"] = $("#dialectboxw").find(":selected").text();
 		item ["word"] = $("#onewordbox").val();
-		item ["wtype"] = $("#wordtypebox").val();
-		item ["subject"] = $("#subjectboxw").val();
+		item ["wtype"] = $("#wordtypebox").find(":selected").val();
+		item ["subject"] = $("#subjectboxw").find(":selected").text();
 		item ["major"] = Getmajors();
-		item ["cntry"] = $("#countryboxw").val();
-		item ["gvrn"] = $("#govboxw").val();
+		item ["cntry"] = $("#countryboxw").find(":selected").text();
+		item ["gvrn"] = $("#govboxw").find(":selected").text();
 		item ["vcount"] =GetVcount();
 		item ["syn"] = Getsyn();
+		var v1=Getsyn();
+		var v2 =GetsynCode();
 		item ["lcount"] = Getlcount();
 		item ["acount"] = GetAcount();
-		item ["region"] = $("#regionboxw").val();
+		item ["region"] = $("#regionboxw").find(":selected").text();
 		item ["wcode"] = GetVideoName($("#onewordbox").val());
 		item ["icount"] =Geticount();
-		item ["syncode"] =GetsynCode();
+		//item ["syncode"] =GetsynCode();
 		item["explain"]=$("#explainbox").val();
 		item ["vexcount"] =GetVexcount();
 		jsonObj.push(item);
@@ -748,7 +771,7 @@ item ["order"] = 20;
 		 $("#wordtypebox").append("<option value='اسم'>اسم</option>");
 		 $("#wordtypebox").append("<option value='فعل'>فعل</option>");
 		 $("#wordtypebox").append("<option value='حرف'>حرف</option>");
-		 $("#wordtypebox").append("<option value='ظرف زمان'>اظرف زمان</option>");
+		 $("#wordtypebox").append("<option value='ظرف زمان'>ظرف زمان</option>");
 	     $("#wordtypebox").append("<option value='ظرف مكان'>ظرف مكان</option>");
          $("#wordtypebox").append("<option value='أداة إستفهام'>أداة إستفهام</option>");
          $("#wordtypebox").append("<option value='إسم موصول'>إسم موصول</option>");
@@ -793,7 +816,7 @@ $("#basiccmd").click(function(e) {
 $("#cmddic").click(function(e) {
 	$("#mainpanel").hide("slow",function(){$("#dicpanel").show( "explode", {pieces: 16 }, 1000 );});
 	FillLangBoxs();
-    FillDialectBoxs($("#langbox2").val());
+    FillDialectBoxs($("#langbox2").find(":selected").text());
 
     
 });
@@ -832,7 +855,7 @@ $("#cmdgovernates").click(function(e) {
      else  if($('#regionpanel').is(':visible'))   
 	 	$("#regionpanel").hide("slow",function(){$("#governatepanel").show( "explode", {pieces: 16 }, 1000 );});    
 		else $("#governatepanel").show( "explode", {pieces: 16 }, 1000 );
-    FillGovernateBoxs($("#countrybox2").val());
+    FillGovernateBoxs($("#countrybox2").find(":selected").text());
 	//$("#governateList").jqxListBox({ source: source, width: '200px', height: '200px', theme: 'summer' });
 
 });
@@ -843,9 +866,9 @@ $("#cmdregions").click(function(e) {
      else  if($('#governatepanel').is(':visible'))   
 	 	$("#governatepanel").hide("slow",function(){$("#regionpanel").show( "explode", {pieces: 16 }, 1000 );});    
 		else $("#regionpanel").show( "explode", {pieces: 16 }, 1000 );
-    FillGovernateBoxs($("#countrybox3").val());
+    FillGovernateBoxs($("#countrybox3").find(":selected").text());
 	//$("#regionList").jqxListBox({ source: source, width: '200px', height: '200px', theme: 'summer' });
-FillRegionList($("#countrybox3").val(),$("#governatebox2").val());
+FillRegionList($("#countrybox3").find(":selected").text(),$("#governatebox2").find(":selected").text());
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -871,20 +894,20 @@ $("#cmdaddcountry").click(function(e) {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 $("#cmdaddgovernate").click(function(e) {
-    if( $("#countrybox2").val()=="") {alert("من فضلك إختر إسم الدولة"); return;}
+    if( $("#countrybox2").find(":selected").text()=="") {alert("من فضلك إختر إسم الدولة"); return;}
     if( $("#governatebox").val()=="") {alert("من فضلك أكتب إسم المحافظة"); return;}
-    InserGovernate($("#countrybox2").val(),$("#governatebox").val());
-	FillGovernateBoxs($("#countrybox2").val());
+    InserGovernate($("#countrybox2").find(":selected").text(),$("#governatebox").val());
+	FillGovernateBoxs($("#countrybox2").find(":selected").text());
 });
 
 ////////////////////////////////////////////////////////////////////////////////////
 
 $("#cmdaddregion").click(function(e) {
-	 if( $("#countrybox3").val()=="") {alert("من فضلك إختر إسم الدولة"); return;}
-    if( $("#governatebox2").val()=="") {alert("من فضلك إختر إسم المحافظة"); return;}
+	 if( $("#countrybox3").find(":selected").text()=="") {alert("من فضلك إختر إسم الدولة"); return;}
+    if( $("#governatebox2").find(":selected").text()=="") {alert("من فضلك إختر إسم المحافظة"); return;}
 	 if( $("#regionbox").val()=="") {alert("من فضلك إختر إسم المنطقة"); return;}
-    InserRegion($("#countrybox3").val(),$("#governatebox2").val(),$("#regionbox").val());
-	FillRegionList($("#countrybox3").val(),$("#governatebox2").val());
+    InserRegion($("#countrybox3").find(":selected").text(),$("#governatebox2").find(":selected").text(),$("#regionbox").val());
+	FillRegionList($("#countrybox3").find(":selected").text(),$("#governatebox2").find(":selected").text());
 
     
 });//////////////////////////////////////////////////////////////////
@@ -924,7 +947,7 @@ if( $("#countrybox").val()=="") {alert("من فضلك أكتب إسم الدول
 		
              var indx=$("#governateList").jqxListBox("getSelectedIndex");
 			 if (indx>=0){
-			 var cntry=$("#countrybox2").val();
+			 var cntry=$("#countrybox2").find(":selected").text();
 			 var gvrn= $("#governateList").jqxListBox('getItem', indx).value;
 			 DelGovernate(cntry,gvrn);
 			  FillGovernateBoxs(cntry);
@@ -941,7 +964,7 @@ $("#cmdmodifygovernate").click(function(e) {
 
  var indx=$("#governateList").jqxListBox("getSelectedIndex");
  if (indx>=0){
-			 var cntry=$("#countrybox2").val();
+			 var cntry=$("#countrybox2").find(":selected").text();
 			 var gvrn= $("#governateList").jqxListBox('getItem', indx).value;
 			 var newvalue=$("#governatebox").val();
 			 UpdateGovernate(cntry,gvrn,newvalue);
@@ -958,8 +981,8 @@ $("#cmdmodifygovernate").click(function(e) {
 
 			 var indx=$("#regionList").jqxListBox("getSelectedIndex");
 			 if (indx>=0){
-			 var cntry=$("#countrybox3").val();
-			 var gvrn=$("#governatebox2").val();
+			 var cntry=$("#countrybox3").find(":selected").text();
+			 var gvrn=$("#governatebox2").find(":selected").text();
 			 var rgn= $("#regionList").jqxListBox('getItem', indx).value;
 			
 			 DelRegion(cntry,gvrn,rgn);
@@ -978,8 +1001,8 @@ $("#cmdmodifyregion").click(function(e) {
 
 			 var indx=$("#regionList").jqxListBox("getSelectedIndex");
 			 if (indx>=0){
-			 var cntry=$("#countrybox3").val();
-			 var gvrn=$("#governatebox2").val();
+			 var cntry=$("#countrybox3").find(":selected").text();
+			 var gvrn=$("#governatebox2").find(":selected").text();
 			 var newvalue=$("#regionbox").val();
 			 var rgn= $("#regionList").jqxListBox('getItem', indx).value;
 			 UpdateRegion(cntry,gvrn,rgn,newvalue);
@@ -990,21 +1013,21 @@ $("#cmdmodifyregion").click(function(e) {
 });
 /////////////////////////////////////////////////////////////////////
 $("#countrybox2").click(function(e) {
-	var contry=$("#countrybox2").val();
+	var contry=$("#countrybox2").find(":selected").text();
        FillGovernateBoxs(contry);
 });
 //////////////////////////////////////////////////////////////////////////////
 $("#countrybox3").click(function(e) {
-    var cntry=$("#countrybox3").val();
+    var cntry=$("#countrybox3").find(":selected").text();
     FillGovernateBoxs2(cntry);
-    var govrn=$("#governatebox2").val();
+    var govrn=$("#governatebox2").find(":selected").text();
  	FillRegionList(cntry,govrn);
 });
     
 /////////////////////////////////////////////////////////////////////////////////////////////////
 $("#governatebox2").click(function(e) {
-	 var cntry=$("#countrybox3").val();
-	 var govrn=$("#governatebox2").val();
+	 var cntry=$("#countrybox3").find(":selected").text();
+	 var govrn=$("#governatebox2").find(":selected").text();
  FillRegionList(cntry,govrn);
 });
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1031,7 +1054,7 @@ $("#cmddialects").click(function(e) {
 	 	$("#wordpanel").hide("slow",function(){$("#dialectpanel").show( "explode", {pieces: 16 }, 1000 );});    
 
 		else $("#dialectpanel").show( "explode", {pieces: 16 }, 1000 );
-    FillDialectBoxs($("#langbox2").val());
+    FillDialectBoxs($("#langbox2").find(":selected").text());
 	//$("#dialectList").jqxListBox({ source: source, width: '200px', height: '200px', theme: 'summer' });
 
 });
@@ -1113,10 +1136,10 @@ $("#cmdaddlang").click(function(e) {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 $("#cmdadddialect").click(function(e) {
-    if( $("#langbox2").val()=="") {alert("من فضلك إختر إسم اللغة"); return;}
+    if( $("#langbox2").find(":selected").text()=="") {alert("من فضلك إختر إسم اللغة"); return;}
     if( $("#dialectbox").val()=="") {alert("من فضلك أكتب إسم اللهجة"); return;}
-    InserDialect($("#langbox2").val(),$("#dialectbox").val());
-	FillDialectBoxs($("#langbox2").val());
+    InserDialect($("#langbox2").find(":selected").text(),$("#dialectbox").val());
+	FillDialectBoxs($("#langbox2").find(":selected").text());
 });
 
 
@@ -1155,7 +1178,7 @@ if( $("#langbox").val()=="") {alert("من فضلك أكتب إسم اللغة ا
 		
              var indx=$("#dialectList").jqxListBox("getSelectedIndex");
 			 if (indx>=0){
-			 var lng=$("#langbox2").val();
+			 var lng=$("#langbox2").find(":selected").text();
 			 var dlct= $("#dialectList").jqxListBox('getItem', indx).value;
 			 DelDialect(lng,dlct);
 			  FillDialectBoxs(lng);
@@ -1172,7 +1195,7 @@ $("#cmdmodifydialect").click(function(e) {
 
  var indx=$("#dialectList").jqxListBox("getSelectedIndex");
  if (indx>=0){
-			 var lng=$("#langbox2").val();
+			 var lng=$("#langbox2").find(":selected").text();
 			 var dlct= $("#dialectList").jqxListBox('getItem', indx).value;
 			 var newvalue=$("#dialectbox").val();
 			 UpdateDialect(lng,dlct,newvalue);
@@ -1183,7 +1206,7 @@ $("#cmdmodifydialect").click(function(e) {
 });
 /////////////////////////////////////////////////////////////////////////////////
 $("#langbox2").click(function(e) {
-	var lng=$("#langbox2").val();
+	var lng=$("#langbox2").find(":selected").text();
        FillDialectBoxs(lng);
 });
 
@@ -1191,7 +1214,7 @@ $("#countryboxw").click(function(e) {
     var jsonObj= new Array();
 	item = {};
         item ["order"] = 2;
-		 item ["country"] = $("#countryboxw").val();
+		 item ["country"] = $("#countryboxw").find(":selected").text();
         jsonObj.push(item);
 		var data=GetSetData(jsonObj);
 		$("#govboxw").find('option').remove().end();
@@ -1207,8 +1230,8 @@ $("#govboxw").click(function(e) {
     var jsonObj= new Array();
 	item = {};
         item ["order"] = 3;
-		item ["country"] = $("#countryboxw").val();
-		item ["governate"] = $("#govboxw").val();
+		item ["country"] = $("#countryboxw").find(":selected").text();
+		item ["governate"] = $("#govboxw").find(":selected").text();
         jsonObj.push(item);
 		$("#regionboxw").find('option').remove().end();
 		var data=GetSetData(jsonObj);
@@ -1225,7 +1248,7 @@ $("#langboxw").click(function(e) {
     var jsonObj= new Array();
 	item = {};
         item ["order"] = 24;
-		 item ["lang"] = $("#langboxw").val();
+		 item ["lang"] = $("#langboxw").find(":selected").text();
         jsonObj.push(item);
 		var data=GetSetData(jsonObj);
 	$("#dialectboxw").find('option').remove().end();
@@ -1237,7 +1260,7 @@ $("#langboxw").click(function(e) {
 });
 
 $("#cmdsearchword").click(function(e) {
-if($("#subjectboxw").val()=="") {alert("من فضلك إختر الموضوع"); return;}
+if($("#subjectboxw").find(":selected").text()=="") {alert("من فضلك إختر الموضوع"); return;}
 	var ddd=GetAllwords($("#subjectboxw option:selected").text());
 //		$("#dvideo").hide();
 //	 
@@ -1905,10 +1928,10 @@ $("#cmdexportdic").click(function(e) {
  	var jsonObj= new Array();
 	item = {};
     item ["order"] = 6;
-	item ["lang"] = $("#langboxw").val();
-	item ["cntry"] = $("#countryboxw").val();
-	item ["gvrn"] = $("#govboxw").val();
-    item ["region"] = $("#regionboxw").val();
+	item ["lang"] = $("#langboxw").find(":selected").text();
+	item ["cntry"] = $("#countryboxw").find(":selected").text();
+	item ["gvrn"] = $("#govboxw").find(":selected").text();
+    item ["region"] = $("#regionboxw").find(":selected").text();
 	jsonObj.push(item);
 		var data=GetSetWordData(jsonObj);
 		var sss=data[0]["result"];

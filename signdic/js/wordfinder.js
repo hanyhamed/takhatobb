@@ -551,24 +551,124 @@ function GetCatWords(catstr)
 
      
 
-     
+ ///////////////////////////////////////////////////////////////    
       
 
 function GetVideoName(str)
 {
 var vcode="";
 
-for(var i=0;i<str.length;i++)
-{
-var ss = str.substr(i,1);
-vcode=vcode + "0" + GetLetterOrdinalNumber(ss);
-}
+var i=0;
+var flag=false;
 
+while (i < Diction.words.length && !flag) {
+
+            var ss=Diction.words[i].word;
+          
+            if (ss==str) {vcode=Diction.words[i].wcode;flag=true;}
+			else i++;
+
+         }
+	
 return vcode;
 }
 
+///////////////////////////////////////////////////
+function GetExplain(str)
+{
+	
+	var i=0;
+     var flag=false;
+var synstr="";
+while (i < Diction.words.length && !flag) {
 
-//////////////////////////////
+            var ss=Diction.words[i].word;
+          
+            if (ss==str) {synstr=Diction.words[i].explain;flag=true;}
+			else i++;
+
+         }
+		 
+return 	synstr;				 
+}
+///////////////////////////////////////////////////
+function GetSyn(str)
+{
+	var swords=[];
+	var i=0;
+     var flag=false;
+var synstr="";
+while (i < Diction.words.length && !flag) {
+
+            var ss=Diction.words[i].word;
+          
+            if (ss==str) {synstr=Diction.words[i].synonym;flag=true;}
+			else i++;
+
+         }
+		 if(synstr!="") {
+			 			if(synstr.indexOf("~")>0) swords=synstr.split("~");
+		                 else swords.push(synstr);
+						 }
+return 	swords;				 
+}
+///////////////////////////////////////////////////////////////
+function GetDrevs(str)
+{
+	var dwords=[];
+	var i=0;
+	var dd=GetWordCat(str);
+	
+if(dd=="أفعال شائعة") {
+while (i < derivatives.deriv.length ) {
+
+            var ss=derivatives.deriv[i].verb;
+
+            if ( WithoutHamza(WithoutAccent(ss))==WithoutHamza(WithoutAccent(str)) ) {
+				var dicword = derivatives.deriv[i].derivative;
+                var dname= derivatives.deriv[i].dname;
+				var dflag=false;
+switch(dname)
+{
+case "اسم فاعل مزيد":dflag=true; break;
+case "مصدر مزيد":dflag=true; break;
+case "اسم فاعل مجرد":dflag=true; break;
+case "مصدر مجرد":dflag=true; break;
+case "صفة منسوبة":dflag=true; break;
+case "مصدر مجرد":dflag=true; break;
+case "صيغة مبالغة":dflag=true;break;
+case "اسم تفضيل":dflag=true;break;
+case "فعل ماض مزيد مجهول": dflag=true;;break;
+case "فعل ماض مجرد مجهول": dflag=true;break;
+case "فعل مضارع مزيد مجهول": dflag=true;break;
+case "فعل مضارع مجرد مجهول": dflag=true;break;
+case "اسم مفعول مزيد": dflag=true;break;
+case "اسم مفعول مجرد":dflag=true;break;
+case "اسم مرة مجرد":dflag=true;break;
+case "اسم مرة مزيد":dflag=true;break;
+case "اسم آلة": dflag=true;break;
+case "اسم مكان مزيد": dflag=true;break;
+case "اسم مكان مجرد":dflag=true;break;
+case "اسم زمان مجرد": dflag=true;break;
+case "اسم زمان مزيد":dflag=true;break;
+case "ظرف مكان": dflag=true;break;
+case "ظرف زمان":dflag=true;break;
+default: dflag=false; 
+ 
+	} 
+
+   if(dflag) dwords.push(dicword); 
+
+			
+			}
+		         i++;
+
+         }
+	}
+return 	dwords;				 
+
+}
+/////////////////////////////////////////////////
 function GetAllwordStartingWith(str)
 
 {
@@ -808,29 +908,29 @@ if (flag)
 {
 	switch(dname)
 	{
-		case "اسم فاعل مزيد":dd.push(derivatives.deriv[k].verb); break;
-		case "مصدر مزيد":dd.push(derivatives.deriv[k].verb); break;
-		case "اسم فاعل مجرد":dd.push(derivatives.deriv[k].verb); break;
-		case "مصدر مجرد":dd.push(derivatives.deriv[k].verb); break;
-		case "صفة منسوبة":dd.push(derivatives.deriv[k].verb); break;
-		case "مصدر مجرد":dd.push(derivatives.deriv[k].verb); break;
-		case "صيغة مبالغة":dd.push(derivatives.deriv[k].verb); dd.push("دوماً");break;
-		case "اسم تفضيل":dd.push(derivatives.deriv[k].verb); dd.push("أكثرً");break;
-        case "فعل ماض مزيد مجهول": dd.push("الماضي");dd.push(derivatives.deriv[k].verb);break;
-        case "فعل ماض مجرد مجهول": dd.push("الماضي");dd.push(derivatives.deriv[k].verb);break;
-        case "فعل مضارع مزيد مجهول": dd.push("الآن");dd.push(derivatives.deriv[k].verb);break;
-        case "فعل مضارع مجرد مجهول": dd.push("الآن");dd.push(derivatives.deriv[k].verb);break;
-        case "اسم مفعول مزيد": dd.push("شئ");  dd.push("حدوث");dd.push(derivatives.deriv[k].verb);break;
-        case "اسم مفعول مجرد":dd.push("شئ");  dd.push("حدوث");dd.push(derivatives.deriv[k].verb);break;
-        case "اسم مرة مجرد":dd.push(derivatives.deriv[k].verb); dd.push("مرة");break;
-        case "اسم مرة مزيد":dd.push(derivatives.deriv[k].verb); dd.push("مرة");break;
-        case "اسم آلة": dd.push("ماكينة");  dd.push("صنع");dd.push(derivatives.deriv[k].verb);break;
-        case "اسم مكان مزيد": dd.push("مكان");  dd.push("حدوث");dd.push(derivatives.deriv[k].verb);break;
-        case "اسم مكان مجرد": dd.push("مكان");  dd.push("حدوث");dd.push(derivatives.deriv[k].verb);break;
-        case "اسم زمان مجرد": dd.push("زمان");  dd.push("حدوث");dd.push(derivatives.deriv[k].verb);break;
-        case "اسم زمان مزيد": dd.push("زمان");  dd.push("حدوث");dd.push(derivatives.deriv[k].verb);break;
-        case "ظرف مكان": dd.push("مكان");  dd.push(derivatives.deriv[k].verb);break;
-        case "ظرف زمان": dd.push("زمان");  dd.push(derivatives.deriv[k].verb);break;
+		case "اسم فاعل مزيد":dd.push(GetVerbInDIC(derivatives.deriv[k].verb)); break;
+		case "مصدر مزيد":dd.push(GetVerbInDIC(derivatives.deriv[k].verb)); break;
+		case "اسم فاعل مجرد":dd.push(GetVerbInDIC(derivatives.deriv[k].verb)); break;
+		case "مصدر مجرد":dd.push(GetVerbInDIC(derivatives.deriv[k].verb)); break;
+		case "صفة منسوبة":dd.push(GetVerbInDIC(derivatives.deriv[k].verb)); break;
+		case "مصدر مجرد":dd.push(GetVerbInDIC(derivatives.deriv[k].verb)); break;
+		case "صيغة مبالغة":dd.push(GetVerbInDIC(derivatives.deriv[k].verb)); dd.push("دوماً");break;
+		case "اسم تفضيل":dd.push(GetVerbInDIC(derivatives.deriv[k].verb)); dd.push("أكثرً");break;
+        case "فعل ماض مزيد مجهول": dd.push("الماضي");dd.push(GetVerbInDIC(derivatives.deriv[k].verb));break;
+        case "فعل ماض مجرد مجهول": dd.push("الماضي");dd.push(GetVerbInDIC(derivatives.deriv[k].verb));break;
+        case "فعل مضارع مزيد مجهول": dd.push("الان");dd.push(GetVerbInDIC(derivatives.deriv[k].verb));break;
+        case "فعل مضارع مجرد مجهول": dd.push("الان");dd.push(GetVerbInDIC(derivatives.deriv[k].verb));break;
+        case "اسم مفعول مزيد": dd.push("شئ");  dd.push("حدوث");dd.push(GetVerbInDIC(derivatives.deriv[k].verb));break;
+        case "اسم مفعول مجرد":dd.push("شئ");  dd.push("حدوث");dd.push(GetVerbInDIC(derivatives.deriv[k].verb));break;
+        case "اسم مرة مجرد":dd.push(GetVerbInDIC(derivatives.deriv[k].verb)); dd.push("مرة");break;
+        case "اسم مرة مزيد":dd.push(GetVerbInDIC(derivatives.deriv[k].verb)); dd.push("مرة");break;
+        case "اسم آلة": dd.push("ماكينة");  dd.push("صنع");dd.push(GetVerbInDIC(derivatives.deriv[k].verb));break;
+        case "اسم مكان مزيد": dd.push("مكان");  dd.push("حدوث");dd.push(GetVerbInDIC(derivatives.deriv[k].verb));break;
+        case "اسم مكان مجرد": dd.push("مكان");  dd.push("حدوث");dd.push(GetVerbInDIC(derivatives.deriv[k].verb));break;
+        case "اسم زمان مجرد": dd.push("زمان");  dd.push("حدوث");dd.push(GetVerbInDIC(derivatives.deriv[k].verb));break;
+        case "اسم زمان مزيد": dd.push("زمان");  dd.push("حدوث");dd.push(GetVerbInDIC(derivatives.deriv[k].verb));break;
+        case "ظرف مكان": dd.push("مكان");  dd.push(GetVerbInDIC(derivatives.deriv[k].verb));break;
+        case "ظرف زمان": dd.push("زمان");  dd.push(GetVerbInDIC(derivatives.deriv[k].verb));break;
  
 	}
 	
@@ -870,6 +970,20 @@ if(flag) flag=IsVideoThere(tempo);
 return tempo;
 }
 //////////////////////////////////////////////////////////////////////////
+function GetVerbInDIC(str)
+{
+var tempo="";
+var flag=false
+var k=0;
+while ((flag==false) && ( k<Diction.words.length))
+{
+if (WithoutHamza(WithoutAccent(Diction.words[k].word)) == WithoutHamza(WithoutAccent(str))  &&  Diction.words[k].subject =="أفعال شائعة") {flag=true;tempo=Diction.words[k].word;}
+k++;
+}
+
+return tempo;
+}
+////////////////////////////////////////////////////////////////////
 function isAdj(str)
 {
 var sss= GetWordCat(str);
@@ -1321,8 +1435,8 @@ function FindSimilard(str) {
         case "اسم زمان مجرد": dflag=true;break;
         case "اسم زمان مزيد":dflag=true;break;
         case "ظرف مكان": dflag=true;break;
-        case "ظرف زمان":flag=true;break;
-		default: flag=false; 
+        case "ظرف زمان":dflag=true;break;
+		default: dflag=false; 
  
 	} 
 }
@@ -1498,6 +1612,7 @@ function Noquots(str)
  
  function ReadNummber(numstr)
  {
+	 
 	
 	 var num=[];
 	 

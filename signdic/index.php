@@ -38,7 +38,7 @@
 <div class="cl"> </div>
 </div >
 <div class="container">
-<iframe class="frame"  id="iframe1" scrolling ="no" width="960" height="550" src="welcome.php"></iframe><br>
+<iframe class="frame"  id="iframe1" scrolling ="no" width="960" height="650" src="welcome.php"></iframe><br>
 </div>
 <div id="footer" >
    <div class="copyright"><a href="http://khalifacomputergroup.com" target="_blank">جميع الحقوق محفوظة © 2014 لمجموعة خليفة للكمبيوتر</a></div>
