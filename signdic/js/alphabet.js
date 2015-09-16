@@ -45,7 +45,7 @@ function popxa(ordn)
  	    var ppp= vvv.substring(0,vvv.lastIndexOf('/')+1) ;
 		ppp=ppp.replace("#","");
 		//ppp=ppp.replace("http://","");
-		ppp=ppp+"res/video/" + GetVideoName( lstr) + "/1.webm";
+		ppp=ppp+"res/video/" + GetVideoNameOld( lstr) + "/1.webm";
            // vv.src= "./res/video/" + GetVideoName( lstr) + ".webm";
 	    vv.src= ppp;
         vv.load();
@@ -66,7 +66,7 @@ function popx(ordn)
  	    var ppp= vvv.substring(0,vvv.lastIndexOf('/')+1) ;
 		ppp=ppp.replace("#","");
 		//ppp=ppp.replace("http://","");
-		ppp=ppp+"res/video/" + GetVideoName( lstr) + "/1.webm";
+		ppp=ppp+"res/video/" + GetVideoNameOld( lstr) + "/1.webm";
            // vv.src= "./res/video/" + GetVideoName( lstr) + ".webm";
 	    vv.src= ppp;
         vv.load();
@@ -118,7 +118,7 @@ function activalphabet(element){
 
 function ReturnPicNo(word)
 {
-	dd=GetVideoName(word) ;
+	dd=GetVideoNameOld(word) ;
 	 var vvv= document.URL ;
  	 var ppp= vvv.substring(0,vvv.lastIndexOf('/')+1)+"res/images/"+dd+"/" ;
 	var xx=0;
@@ -144,7 +144,7 @@ function ShowImage(param) {
 	if (cnt > 0) {
         $("#wordimage").toggle("slide");
         //$("#wordimage").attr('src',zz[xx]);
-        $("#wordimage").attr('src', 'res/images/' +GetVideoName(sss)+"/"+ currpic + ".jpg");
+        $("#wordimage").attr('src', 'res/images/' +GetVideoNameOld(sss)+"/"+ currpic + ".jpg");
         $("#wordimage").toggle("slide");
                
     }

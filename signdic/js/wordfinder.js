@@ -550,7 +550,19 @@ function GetCatWords(catstr)
      }
 
      
+//////////////////////////////////////////////////////////////////////////
+function GetVideoNameOld(str)
+{
+var vcode="";
 
+for(var i=0;i<str.length;i++)
+{
+var ss = str.substr(i,1);
+vcode=vcode + "0" + GetLetterOrdinalNumber(ss);
+}
+
+return vcode;
+}
  ///////////////////////////////////////////////////////////////    
       
 
