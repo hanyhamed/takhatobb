@@ -31,7 +31,7 @@
         <li><a class="mi" id="mi3" href="#Words" data-id="3">الكلمات</a></li>
         <li><a class="mi" id="mi4" href="#Subjects" data-id="4">الموضوعات</a></li>
         <li><a class="mi" id="mi5" href="#DeafReader" data-id="5">مترجم الجمل</a></li>
-        <li><a class="mi" id="mi6" href="#" data-id="6">عودة</a></li>
+        <li><a class="mi" id="mi6" href="#Numbers" data-id="6">الأرقام</a></li>
         
       </ul>
     </div>      

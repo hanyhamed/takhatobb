@@ -26,7 +26,8 @@ $(document).on('click','.dicmainmenu .mi',function(){
 	break;
 	case 6:///back button
 	//// return to apps.php screen
-	
+	i_frame.src="numbers.php";
+	activmenu($(this))
 	break;		
 	}
 })///end of menu btns click

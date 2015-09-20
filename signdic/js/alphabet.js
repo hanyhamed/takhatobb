@@ -115,7 +115,7 @@ function activalphabet(element){
  
 	$(element).removeClass('alphactive').addClass('alphactive');
 }
-
+//////////////////////////////////////////////////////////////////////
 function ReturnPicNo(word)
 {
 	dd=GetVideoNameOld(word) ;
@@ -130,7 +130,7 @@ function ReturnPicNo(word)
 	}
 	return i;
 }
-
+////////////////////////////////////////////////////////////////
 
 function ShowImage(param) {
     var sss=document.getElementById("wordTit").innerHTML;
@@ -149,6 +149,8 @@ function ShowImage(param) {
                
     }
 }
+
+///////////////////////////////////////////////////////////////////////////
 function LoadPics()
 {
 	var ss=document.getElementById("wordTit").innerHTML;
