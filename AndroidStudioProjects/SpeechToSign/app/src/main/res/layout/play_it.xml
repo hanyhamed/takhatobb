@@ -12,5 +12,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         />
-
+<TextView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:textColor="#ffff1721"
+    android:textStyle="bold"
+    android:gravity="center"
+    android:id="@+id/TextViewWord"
+    android:textSize="30sp"
+    android:background="@drawable/shape2"
+    android:textAlignment="center" />
 </LinearLayout>

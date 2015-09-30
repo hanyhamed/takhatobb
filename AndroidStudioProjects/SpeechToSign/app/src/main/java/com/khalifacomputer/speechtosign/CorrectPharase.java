@@ -108,7 +108,7 @@ public class CorrectPharase extends Activity {
                     cc=cc.substring(0,cc.length()-1);
                     Intent myIntent = new Intent(v.getContext(), video_player.class);
                     myIntent.putExtra("SentText", cc);
-                    //Log.i("EDIT_TEXT", txtText.getText().toString());
+                    Log.i("text to play---->", cc);
                     startActivity(myIntent);
                     finish();
 
@@ -170,6 +170,7 @@ public class CorrectPharase extends Activity {
         @Override
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
+            oslist.clear();
             try {
                 // Getting JSON Array from URL
                 android = json.getJSONArray(TAG_WORDS);
@@ -227,10 +228,11 @@ public class CorrectPharase extends Activity {
         Rad2.setVisibility(View.INVISIBLE);
         Rad3.setVisibility(View.INVISIBLE);
         alerttxt.setVisibility(View.INVISIBLE);
+        if(sf>oslist.size()-1)   {alerttxt.setVisibility(View.INVISIBLE); BtnCorrect.setText("ترجمة للغة الإشارة");BtnCorrect.setVisibility(View.VISIBLE); return;}
 
         //Log.i("List Size-->> ", Integer.toString(oslist.size()));
         while (i < oslist.size() && !flag) {
-                 if (oslist.get(i).get(TAG_STATUS).indexOf("yes")>=0) {
+                 if (oslist.get(i).get(TAG_STATUS).indexOf("yes")>=0 && oslist.get(i).get(TAG_ALT).trim().length()>0) {
                     flag = true;
                 CurrentWord=oslist.get(i).get(TAG_WORD).trim();
                 String ss = oslist.get(i).get(TAG_ALT).trim();
@@ -253,9 +255,11 @@ public class CorrectPharase extends Activity {
 
                 }
 
-                else if (ss.trim().equals(CurrentWord.trim()) ) {
+                else if (ss.trim().equals(CurrentWord.trim()) )
+                {
                     startfrom=i+1;
                     FindAlt(startfrom);
+                   // if(startfrom>oslist.size()-1)   {alerttxt.setVisibility(View.INVISIBLE); BtnCorrect.setText("ترجمة للغة الإشارة");BtnCorrect.setVisibility(View.VISIBLE); }
                 }
 
                 else

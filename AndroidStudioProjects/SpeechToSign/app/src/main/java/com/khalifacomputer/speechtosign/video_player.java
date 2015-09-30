@@ -48,12 +48,13 @@ public class video_player extends Activity {
   //  private MediaController mediaControls;
    //ArrayList<String> words = new ArrayList<String>();
     ArrayList<String> videoos = new ArrayList<String>();
-
+    ArrayList<String> txtees = new ArrayList<String>();
     String ThisWord;
     //int current_word=0;
     static  int current_video=0;
     private static final String TAG_WORDS = "videos";
     private static final String TAG_WORD= "vpath";
+    private static final String TAG_TXT= "txt";
     JSONArray android = null;
 
     //private static String url = "http://127.0.0.1/takhtop_backend/hp/video.php";
@@ -127,8 +128,10 @@ protected  void onStart()
 
                         // Storing  JSON item in a Variable
                         String ver = c.getString(TAG_WORD);
+                        String txt= c.getString(TAG_TXT);
                        Log.i("ver",ver);
                         videoos.add(i,ver);
+                        txtees.add(i,txt);
                         // mylist.add(ver);
 
 
@@ -141,14 +144,20 @@ protected  void onStart()
                   current_video=0;
                   //String url = videoos.get(current_video).toString();
                   String url ="";
-                  for (int i=0;i<videoos.size();i++)  if(i==0)
-
-                      url=url+videoos.get(i).toString().replace("http://khalifacomputer.com/tamkeen/tamkeen1/words/res/video/","");
-                       else url=url+"~" +videoos.get(i).toString().replace("http://khalifacomputer.com/tamkeen/tamkeen1/words/res/video/","");
-          Intent myIntent = new Intent(getApplicationContext(),playit.class);
+                  String txto="";
+                  for (int i=0;i<videoos.size();i++)
+                      if (i == 0) {
+                          url = url + videoos.get(i).toString().replace("http://khalifacomputer.com/tamkeen/tamkeen1/words/res/video/", "");
+                          txto=txto+txtees.get(i).toString();
+                      }
+                      else {
+                          url = url + "~" + videoos.get(i).toString().replace("http://khalifacomputer.com/tamkeen/tamkeen1/words/res/video/", "");
+                          txto=txto+"~"+txtees.get(i).toString();
+                      }
+                 Intent myIntent = new Intent(getApplicationContext(),playit.class);
 
                   myIntent.putExtra("SentText", url);
-
+                  myIntent.putExtra("Words", txto);
                   startActivity(myIntent);
                   finish();
                   //startActivityForResult(myIntent,0);

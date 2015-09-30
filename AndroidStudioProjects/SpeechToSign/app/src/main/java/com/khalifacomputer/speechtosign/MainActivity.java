@@ -42,7 +42,8 @@ public class MainActivity extends Activity {
    Button BtnSound;
 
     MediaPlayer mMediaPlayer;
-   // TextToSpeech t1;
+  TextToSpeech t1;
+    Boolean sflag=true;
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class MainActivity extends Activity {
         BtnSend=(Button) findViewById(R.id.buttontrans);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
         BtnExit=(Button)findViewById(R.id.buttonexit);
-/*
+
        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -62,7 +63,7 @@ public class MainActivity extends Activity {
                   Locale loc = new Locale("ar_EG");
                     int result=t1.setLanguage(loc);
                     if (result == TextToSpeech.LANG_MISSING_DATA
-                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED) { sflag=false;
                         Log.e("TTS", "This Language is not supported");
                     }
 
@@ -73,8 +74,8 @@ public class MainActivity extends Activity {
 
 
         });
-*/
-        BtnSound=(Button) findViewById(R.id.buttonsound);
+
+       BtnSound=(Button) findViewById(R.id.buttonsound);
        BtnExit.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -86,6 +87,9 @@ public class MainActivity extends Activity {
         BtnSound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                t1.speak(txtText.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+               if(sflag) return;
                 if (mMediaPlayer != null) {
                     mMediaPlayer.release();
                     mMediaPlayer = null;
@@ -254,6 +258,10 @@ public class MainActivity extends Activity {
 
 
     }
-
-
+@Override
+protected  void onStart()
+{
+super.onStart();
+    txtText.setText("");
+}
 }

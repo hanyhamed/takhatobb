@@ -17,6 +17,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 public class playit extends Activity implements SurfaceHolder.Callback{
@@ -24,21 +25,32 @@ public class playit extends Activity implements SurfaceHolder.Callback{
     MediaPlayer mMediaPlayer;
    SurfaceView surfaceView;
     SurfaceHolder surfaceHolder;
+    TextView textViewWord;
     boolean pausing = false;
     private int mVideoWidth;
     private int mVideoHeight;
    private int current_video=0;
-    String[] videoos;
+    String[] videoos=new String[1];
+    String[] txtees=new String[1];
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play_it);
         String ss  =getIntent().getExtras().getString("SentText");
+        Log.i("ss---->",ss);
         if(ss.indexOf("~")>0)
         videoos =ss.split("~");
-        else videoos[0]=ss;
+        else {ss=ss+"~00/00.3gp"; videoos =ss.split("~");}
+                //videoos[0]=ss;
+
         for(int i=0;i<videoos.length;i++) videoos[i]="http://khalifacomputer.com/tamkeen/tamkeen1/words/res/video/"+ videoos[i];
+        ss  =getIntent().getExtras().getString("Words");
+        if(ss.indexOf("~")>0)
+            txtees =ss.split("~");
+        else {ss=ss+"~ ";txtees =ss.split("~"); }
+            //txtees[0]=ss;
+        textViewWord=(TextView)findViewById(R.id.TextViewWord);
         getWindow().setFormat(PixelFormat.UNKNOWN);
         surfaceView = (SurfaceView)findViewById(R.id.Sview);
         surfaceHolder = surfaceView.getHolder();
@@ -105,6 +117,8 @@ public class playit extends Activity implements SurfaceHolder.Callback{
                 mVideoHeight = mMediaPlayer.getVideoHeight();
                 if (mVideoWidth != 0 && mVideoHeight != 0) {
                     surfaceHolder.setFixedSize(mVideoWidth, mVideoHeight);
+                    Log.i("Current word---->",txtees[current_video].toString());
+                    textViewWord.setText(txtees[current_video].toString());
                     mMediaPlayer.start();
                     Log.i("MP---->","Start");
                 }

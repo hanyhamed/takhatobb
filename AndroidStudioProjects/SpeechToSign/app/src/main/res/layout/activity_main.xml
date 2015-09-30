@@ -26,7 +26,6 @@
         android:layout_marginTop="5sp"
         android:layout_below="@+id/btnSpeak"
         android:textColor="#ffffffff"
-        android:text="ذهب الطالب إلى المدرسة"
         android:textAlignment="gravity"
         android:gravity="right|top"
         android:textStyle="bold" />
