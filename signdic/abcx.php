@@ -11,7 +11,7 @@
 <script type="text/javascript" language="JavaScript" src="./js/dic.js"></script>
 <script type="text/javascript" language="JavaScript" src="./js/derivatives.js"></script>
 <script type="text/javascript" language="JavaScript" src="./js/wordfinder.js"></script>
-<script type="text/javascript"  language="JavaScript"  src="js/abcx.js"></script>
+<script type="text/javascript" language="JavaScript"  src="js/abcx.js"></script>
 </head>
   
 <body onLoad="populate();">

@@ -1332,15 +1332,14 @@ function FindSimilar(str) {
    var simword = [];
    var  ss = WithoutAccent(str);
    var sss = WithoutHamza(ss);
-
+   var df=false;
    var doneflag=false;
-   
+   var flagg=false
  for (var i = 0; i < Diction.words.length; i++) {
-         df=false;
-
+       df=false;
 	dicword = Diction.words[i].word;
         ssss = WithoutHamza(WithoutAccent(dicword));
-        if (ssss == sss) {simword.push(dicword); df=true ;}
+        if (ssss == sss) {simword.push(dicword); df=true ; flagg=true;}
         var flag=hasAccent(dicword);
         
 	if (flag==true) {

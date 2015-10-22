@@ -407,8 +407,8 @@ var storest="";
             ts = sss[i];
             flag = FoundInDic(ts);
             if (flag == true) { innerstr = innerstr + " " + "<span id='w" + i + "' class='sp4' >" + ts + "</span>"; };
-            if (flag == false) { ssss = FindSimilar(ts); }
-			 if (flag == false) { ssss = FindSimilard(ts); }
+            if (flag == false)  ssss = FindSimilar(ts);  
+			  if(ssss.length<1 && flag == false)  ssss = FindSimilard(ts); 
             if (flag==false && ssss.length > 0) {
                 flag = true;
                 temp = "";
